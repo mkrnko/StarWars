@@ -75,6 +75,10 @@ function mainHandler() {
 
 
   function buttonBack() {
+    if (window.innerWidth <= 1200) {
+      this.parentElement.classList.remove('active');
+      personWrapper.style.zIndex = '0'
+    }
     page = localStorage.getItem('page')
     personWrapper.innerHTML = ''
     responseGet();
@@ -94,17 +98,23 @@ function mainHandler() {
 
   function buttonClose() {
     this.parentElement.classList.remove('active');
+    if (window.innerWidth <= 1200) {
+      personWrapper.style.zIndex = '0'
+    }
     setTimeout(function () {
       popupWrapper.children[0].remove();
     }, 500);
   }
 
   function checkPage() {
-    if (page == localStorage.getItem('page')) {
-      button_back.style.display = 'none'
-    } else {
-      button_back.style.display = 'block'
+    if (window.innerWidth >= 1200) {
+      if (page == localStorage.getItem('page')) {
+        button_back.style.display = 'none'
+      } else {
+        button_back.style.display = 'block'
+      }
     }
+
   };
 
   function pagination(next, prev) {
@@ -127,6 +137,10 @@ function mainHandler() {
       item.classList.remove('active');
     })
     personItem.classList.add('active')
+    if (window.innerWidth <= 1200) {
+      personWrapper.style.zIndex = '-1'
+    }
+
     if (popupWrapper.children.length > 2) {
       popupWrapper.children[0].remove();
     }
@@ -135,6 +149,7 @@ function mainHandler() {
     popupWrapper.classList.add('active');
     checkPage();
   };
+
 
   class Person {
     constructor(name, birth_year, gender, films, homeworld, species, page) {
